@@ -1,11 +1,18 @@
 import './App.css';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Left from "./parts/left";
 
 function App() {
     return (
-        <div className="app">
-            <div className="left"></div>
-            <div className="right"></div>
-        </div>
+        <Router>
+            <div className="app">
+                <Left/>
+                <div className="right">
+                    <Routes>
+                    </Routes>
+                </div>
+            </div>
+        </Router>
     );
 }
 
