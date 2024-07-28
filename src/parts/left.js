@@ -10,28 +10,28 @@ function Left(props) {
 
             <NavLink to="/" className={activer}>
                 <span className="link-icon">
-                    <i className="bi bi-house-door"></i>
+                    <i className="bi bi-house-door-fill"></i>
                 </span>
                 Asosiy
             </NavLink>
 
             <NavLink to="/buyurtmalar" className={activer}>
                 <span className="link-icon">
-                    <i className="bi bi-bell"></i>
+                    <i className="bi bi-bell-fill"></i>
                 </span>
                 Buyurtmalar
             </NavLink>
 
             <NavLink to="/izohlar" className={activer}>
                 <span className="link-icon">
-                    <i className="bi bi-chat-dots"></i>
+                    <i className="bi bi-chat-right-text-fill"></i>
                 </span>
                 Habarlar
             </NavLink>
 
             <NavLink to="/sozlamalar" className={activer}>
                 <span className="link-icon">
-                    <i className="bi bi-gear"></i>
+                    <i className="bi bi-gear-fill"></i>
                 </span>
                 Sozlamalar
             </NavLink>
