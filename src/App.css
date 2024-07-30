@@ -79,12 +79,6 @@
     border-radius: 5px;
     margin-top: 5px;
 }
-.add-window{
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 40px;
-}
 .my-input{
     width: 100%;
     display: block;
@@ -107,9 +101,9 @@
     border-radius: 10px;
 }
 .my-image-label:hover{
-    transition: 0.2s;
-    color: #3f0097;
-    border-color: #3f0097;
+    /*transition: 0.2s;*/
+    color: #18d145;
+    border-color: #18d145;
 }
 .file-text{
     font-size: 16px;
@@ -122,7 +116,7 @@
     color: black;
 }
 .my-input:focus{
-    outline: 2px solid rgba(63, 0, 151, 0.49);
+    outline: 2px solid #18d145;
 }
 .submit-btn{
     padding: 10px 20px;
