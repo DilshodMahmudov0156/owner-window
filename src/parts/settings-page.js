@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {findByRole} from "@testing-library/react";
 import {v4 as uuidv4} from "uuid";
+import {db, photoStorage} from "../configurations/firebase";
+import { getDownloadURL, listAll, ref as photoRef, uploadBytes } from "firebase/storage";
+import { set, ref } from "firebase/database";
 
 function SettingsPage() {
 
@@ -16,15 +18,31 @@ function SettingsPage() {
 
     const submitData = (e) => {
         e.preventDefault();
-        const objData = {
-            id: uuidv4(),
-            photo: photo,
-            title: title,
-            price: price,
-            info: info
-        }
+        const photoToll = photoRef(photoStorage, `photos/${uuidv4()}`)
+        uploadBytes(photoToll, photo).then(val => {
+            getDownloadURL(val.ref).then(url=> {
+                // const objData = {
+                //     id: uuidv4(),
+                //     photo: url,
+                //     title: title,
+                //     price: price,
+                //     info: info
+                // };
 
-        console.log(objData);
+                set(ref(db, `/${uuidv4()}`), {
+                    id: uuidv4(),
+                    photo: url,
+                    title: title,
+                    price: price,
+                    info: info
+                });
+
+            })
+        })
+
+
+
+        // console.log(objData);
     }
     return (
         <div className="container-fluid">
@@ -33,7 +51,7 @@ function SettingsPage() {
             </div>
             <div className="row justify-content-evenly add-window mt-4">
                 <div className="col-xl-4 col-lg-6 col-md-8">
-                    <div className="card py-2">
+                    <div className="card py-2 shadow-lg">
                         <form action="" className="card-body" onSubmit={(e)=>{submitData(e)}}>
                             <label htmlFor="image" className="my-image-label">
                                 {
