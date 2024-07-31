@@ -22,7 +22,7 @@ function Left(props) {
                 Buyurtmalar
             </NavLink>
 
-            <NavLink to="/izohlar" className={activer}>
+            <NavLink to="/habarlar" className={activer}>
                 <span className="link-icon">
                     <i className="bi bi-chat-right-text-fill"></i>
                 </span>

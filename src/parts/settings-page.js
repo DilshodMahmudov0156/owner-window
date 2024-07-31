@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {v4 as uuidv4} from "uuid";
 import {db, photoStorage} from "../configurations/firebase";
 import { getDownloadURL, listAll, ref as photoRef, uploadBytes } from "firebase/storage";
-import { set, ref } from "firebase/database";
+import { set, ref, onValue, remove, update } from "firebase/database";
 
 function SettingsPage() {
 
@@ -10,44 +10,50 @@ function SettingsPage() {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState(null);
     const [info, setInfo] = useState("");
+    const [arr, setArr] =useState(null);
 
     const getPhoto = (e) => {setPhoto(e.target.files[0]);}
     const getTitle = (e) => {setTitle(e.target.value);}
     const getPrice = (e) => {setPrice(e.target.value);}
     const getCommit = (e) => {setInfo(e.target.value);}
 
-    const submitData = (e) => {
+    useEffect(() => {
+        onValue(ref(db), (snapshot) => {
+            setArr([]);
+            const data = snapshot.val();
+            if (data!== null){
+                Object.values(data).map((obj)=> {
+                    setArr((oldArr) => [...oldArr, obj ])
+                })
+            }
+        })
+    }, []);
+
+    const submitData = async (e) => {
         e.preventDefault();
         const photoToll = photoRef(photoStorage, `photos/${uuidv4()}`)
+        await
         uploadBytes(photoToll, photo).then(val => {
             getDownloadURL(val.ref).then(url=> {
-                // const objData = {
-                //     id: uuidv4(),
-                //     photo: url,
-                //     title: title,
-                //     price: price,
-                //     info: info
-                // };
-
                 set(ref(db, `/${uuidv4()}`), {
                     id: uuidv4(),
                     photo: url,
                     title: title,
                     price: price,
                     info: info
-                });
-
+                })
             })
         })
+    }
 
 
-
-        // console.log(objData);
+    const test = () => {
+        console.log(arr)
     }
     return (
         <div className="container-fluid">
             <div className="d-flex justify-content-end">
-                <button className="add-btn">+ Yangi qo'shish</button>
+                <button className="add-btn" onClick={test}>+ Yangi qo'shish</button>
             </div>
             <div className="row justify-content-evenly add-window mt-4">
                 <div className="col-xl-4 col-lg-6 col-md-8">
